@@ -1,4 +1,5 @@
 require('dotenv').config()
+import "@babel/polyfill";
 import express from 'express'
 const app = express()
 import express_graphql from 'express-graphql'
@@ -49,6 +50,6 @@ app.use(
   }))
 )
 
-app.listen(4000, () => {
+app.listen(PORT, () => {
   console.log(`Express listening on port ${PORT}`)
 })

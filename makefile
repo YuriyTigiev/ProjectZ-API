@@ -16,6 +16,9 @@ help: all
 start:
 	@docker-compose up
 
+start-detached:
+	@docker-compose up -d
+
 stop:
 	@docker-compose stop
 
@@ -27,3 +30,11 @@ node:
 
 npm:
 	@docker-compose exec back sh -c "npm install"
+
+
+prod:
+	@docker-compose exec back sh -c 'npm run build'
+
+
+build:
+	sh -c "docker-compose up -d && docker-compose exec back sh -c 'npm run build' && docker-compose stop"
