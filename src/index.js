@@ -1,11 +1,12 @@
-require('dotenv').config()
-import "@babel/polyfill";
+import '@babel/polyfill'
 import express from 'express'
-const app = express()
 import express_graphql from 'express-graphql'
 import mongoose from 'mongoose'
 import schema from './graphql/schema'
 import jwt from 'jsonwebtoken'
+import cors from 'cors'
+require('dotenv').config()
+const app = express()
 
 // Env variables
 const SECRET = process.env.SECRET
@@ -25,25 +26,27 @@ mongoose.connection.once('open', () => {
 })
 
 const tradeTokenForUser = async (req) => {
-  let authToken = null;
-  let user = null;
+  let authToken = null
+  let user = null
 
   try {
-    authToken = req.headers['authorization'];
+    authToken = req.headers['authorization']
 
     if (authToken) {
-      user = await jwt.verify(authToken, SECRET);
+      user = await jwt.verify(authToken, SECRET)
     }
   } catch (e) {
-    console.warn(`Unable to authenticate using auth token: ${authToken}`);
+    console.warn(`Unable to authenticate using auth token: ${authToken}`)
   }
 
   return { user: user }
 }
 
+app.use(cors())
+
 app.use(
   '/graphql',
-  express_graphql(async req => ({
+  express_graphql(async (req) => ({
     schema,
     context: await tradeTokenForUser(req),
     graphiql: true

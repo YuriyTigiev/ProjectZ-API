@@ -3,7 +3,6 @@ import { GraphQLObjectType, GraphQLSchema, GraphQLString, GraphQLList, GraphQLNo
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
 
-import { AuthorizationError } from '../errors'
 import { authenticated } from '../guards'
 
 // Import types needed in Queries & Mutations
@@ -64,7 +63,7 @@ const Mutation = new GraphQLObjectType({
         const { id } = user
         const token = jwt.sign({ user: { id, email } }, process.env.SECRET, { expiresIn: '1d' })
 
-        return token
+        return tokenz
       }
     }
   }
