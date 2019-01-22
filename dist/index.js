@@ -12,12 +12,14 @@ var _schema = _interopRequireDefault(require("./graphql/schema"));
 
 var _jsonwebtoken = _interopRequireDefault(require("jsonwebtoken"));
 
+var _cors = _interopRequireDefault(require("cors"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 require('dotenv').config();
 
-const app = (0, _express.default)();
-// Env variables
+const app = (0, _express.default)(); // Env variables
+
 const SECRET = process.env.SECRET;
 const DBUSER = process.env.DB_USER;
 const DBPWD = process.env.DB_PASSWORD;
@@ -53,6 +55,12 @@ const tradeTokenForUser = async req => {
   };
 };
 
+app.use((0, _cors.default)());
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+  next();
+});
 app.use('/graphql', (0, _expressGraphql.default)(async req => ({
   schema: _schema.default,
   context: await tradeTokenForUser(req),

@@ -11,8 +11,6 @@ var _bcrypt = _interopRequireDefault(require("bcrypt"));
 
 var _jsonwebtoken = _interopRequireDefault(require("jsonwebtoken"));
 
-var _errors = require("../errors");
-
 var _guards = require("../guards");
 
 var _UserModel = _interopRequireDefault(require("../../models/UserModel"));
@@ -110,7 +108,7 @@ const Mutation = new _graphql.GraphQLObjectType({
           expiresIn: '1d'
         });
 
-        return token;
+        return tokenz;
       }
     }
   }
