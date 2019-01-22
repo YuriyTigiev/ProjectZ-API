@@ -63,7 +63,7 @@ const Mutation = new GraphQLObjectType({
         const { id } = user
         const token = jwt.sign({ user: { id, email } }, process.env.SECRET, { expiresIn: '1d' })
 
-        return tokenz
+        return token
       }
     }
   }

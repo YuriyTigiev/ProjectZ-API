@@ -108,7 +108,7 @@ const Mutation = new _graphql.GraphQLObjectType({
           expiresIn: '1d'
         });
 
-        return tokenz;
+        return token;
       }
     }
   }
