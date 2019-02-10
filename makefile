@@ -38,3 +38,4 @@ prod:
 
 build:
 	sh -c "docker-compose up -d && docker-compose exec back sh -c 'npm run build' && docker-compose stop"
+
